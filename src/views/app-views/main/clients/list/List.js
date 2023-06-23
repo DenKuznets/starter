@@ -6,17 +6,55 @@ import UserView from "./UserView";
 import AvatarStatus from "components/shared-components/AvatarStatus";
 import userData from "assets/data/user-list.data.json";
 
-
+const myUsers = [
+    {
+        id: 1,
+        name: "Leanne Graham",
+        username: "Bret",
+        email: "Sincere@april.biz",
+        address: {
+            street: "Kulas Light",
+            suite: "Apt. 556",
+            city: "Gwenborough",
+            zipcode: "92998-3874",
+            geo: { lat: "-37.3159", lng: "81.1496" },
+        },
+        company: {
+            name: "Romaguera-Crona",
+            catchPhrase: "Multi-layered client-server neural-net",
+            bs: "harness real",
+        },
+    },
+    {
+        id: 2,
+        name: "ALeanne Graham",
+        username: "ABret",
+        email: "Sincere@april.biz",
+        address: {
+            street: "Kulas Light",
+            suite: "Apt. 556",
+            city: "AGwenborough",
+            zipcode: "92998-3874",
+            geo: { lat: "-37.3159", lng: "81.1496" },
+        },
+        company: {
+            name: "Romaguera-Crona",
+            catchPhrase: "Multi-layered client-server neural-net",
+            bs: "harness real",
+        },
+    },
+];
 
 export class List extends Component {
-
     getUsers = () => {
-        console.log('getting users')
+        // console.log("getting users");
 
-        
+        // fetch("https://jsonplaceholder.typicode.com/users")
+        //     .then((response) => response.json())
+        //     .then((json) => console.log(json));
 
-        return "users"
-    }
+        return myUsers;
+    };
 
     state = {
         newUsers: this.getUsers(),
@@ -47,21 +85,24 @@ export class List extends Component {
     };
 
     render() {
-        const { users, userProfileVisible, selectedUser } = this.state;
+        const { newUsers ,users, userProfileVisible, selectedUser } = this.state;
 
         const tableColumns = [
             {
-                title: "User",
+                title: "Имя",
                 dataIndex: "name",
-                render: (_, record) => (
-                    <div className="d-flex">
-                        <AvatarStatus
-                            src={record.img}
-                            name={record.name}
-                            subTitle={record.email}
-                        />
-                    </div>
-                ),
+                render: (_, record) => {
+                    console.log(record);
+                    return (
+                        <div className="d-flex">
+                            <AvatarStatus
+                                // src={record.img}
+                                name={record.name}
+                                subTitle={record.email}
+                            />
+                        </div>
+                    );
+                },
                 sorter: {
                     compare: (a, b) => {
                         a = a.name.toLowerCase();
@@ -71,72 +112,79 @@ export class List extends Component {
                 },
             },
             {
-                title: "Role",
-                dataIndex: "role",
+                title: "Никнейм",
+                dataIndex: "username",
                 sorter: {
-                    compare: (a, b) => a.role.length - b.role.length,
+                    compare: (a, b) => {
+                        a = a.username.toLowerCase();
+                        b = b.username.toLowerCase();
+                        return a > b ? -1 : b > a ? 1 : 0;
+                    },
                 },
             },
             {
-                title: "Last online",
-                dataIndex: "lastOnline",
-                render: (date) => (
-                    <span>{dayjs.unix(date).format("MM/DD/YYYY")} </span>
-                ),
-                sorter: (a, b) =>
-                    dayjs(a.lastOnline).unix() - dayjs(b.lastOnline).unix(),
-            },
-            {
-                title: "Status",
-                dataIndex: "status",
-                render: (status) => (
-                    <Tag
-                        className="text-capitalize"
-                        color={status === "active" ? "cyan" : "red"}
-                    >
-                        {status}
-                    </Tag>
-                ),
+                title: "Город",
+                dataIndex: "address",
+                render: (address) => <span>{address.city} </span>,
                 sorter: {
-                    compare: (a, b) => a.status.length - b.status.length,
+                    compare: (a, b) => {
+                        a = a.address.city.toLowerCase();
+                        b = b.address.city.toLowerCase();
+                        return a > b ? -1 : b > a ? 1 : 0;
+                    },
                 },
             },
-            {
-                title: "",
-                dataIndex: "actions",
-                render: (_, elm) => (
-                    <div className="text-right d-flex justify-content-end">
-                        <Tooltip title="View">
-                            <Button
-                                type="primary"
-                                className="mr-2"
-                                icon={<EyeOutlined />}
-                                onClick={() => {
-                                    this.showUserProfile(elm);
-                                }}
-                                size="small"
-                            />
-                        </Tooltip>
-                        <Tooltip title="Delete">
-                            <Button
-                                danger
-                                icon={<DeleteOutlined />}
-                                onClick={() => {
-                                    this.deleteUser(elm.id);
-                                }}
-                                size="small"
-                            />
-                        </Tooltip>
-                    </div>
-                ),
-            },
+            // {
+            //     title: "Status",
+            //     dataIndex: "status",
+            //     render: (status) => (
+            //         <Tag
+            //             className="text-capitalize"
+            //             color={status === "active" ? "cyan" : "red"}
+            //         >
+            //             {status}
+            //         </Tag>
+            //     ),
+            //     sorter: {
+            //         compare: (a, b) => a.status.length - b.status.length,
+            //     },
+            // },
+            // {
+            //     title: "",
+            //     dataIndex: "actions",
+            //     render: (_, elm) => (
+            //         <div className="text-right d-flex justify-content-end">
+            //             <Tooltip title="View">
+            //                 <Button
+            //                     type="primary"
+            //                     className="mr-2"
+            //                     icon={<EyeOutlined />}
+            //                     onClick={() => {
+            //                         this.showUserProfile(elm);
+            //                     }}
+            //                     size="small"
+            //                 />
+            //             </Tooltip>
+            //             <Tooltip title="Delete">
+            //                 <Button
+            //                     danger
+            //                     icon={<DeleteOutlined />}
+            //                     onClick={() => {
+            //                         this.deleteUser(elm.id);
+            //                     }}
+            //                     size="small"
+            //                 />
+            //             </Tooltip>
+            //         </div>
+            //     ),
+            // },
         ];
         return (
             <Card bodyStyle={{ padding: "0px" }}>
                 <div className="table-responsive">
                     <Table
                         columns={tableColumns}
-                        dataSource={users}
+                        dataSource={newUsers}
                         rowKey="id"
                     />
                 </div>
