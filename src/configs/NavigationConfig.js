@@ -1,4 +1,8 @@
-import { DashboardOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import {
+    DashboardOutlined,
+    ShoppingCartOutlined,
+    UserOutlined,
+} from "@ant-design/icons";
 import { APP_PREFIX_PATH } from "configs/AppConfig";
 
 const dashBoardNavTree = [
@@ -76,6 +80,31 @@ const mainNavTree = [
                         title: "Комбо",
                         // icon: ShoppingCartOutlined,
                         breadcrumb: true,
+                        submenu: [],
+                    },
+                ],
+            },
+            {
+                key: "main-clients",
+                path: `${APP_PREFIX_PATH}/main/clients`,
+                title: "Клиенты",
+                icon: UserOutlined,
+                breadcrumb: false,
+                submenu: [
+                    {
+                        key: "main-clients-list",
+                        path: `${APP_PREFIX_PATH}/main/clients/list`,
+                        title: "Список клиентов",
+                        // icon: ShoppingCartOutlined,
+                        breadcrumb: false,
+                        submenu: [],
+                    },
+                    {
+                        key: "main-clients-group",
+                        path: `${APP_PREFIX_PATH}/main/clients/group`,
+                        title: "Группы клиентов",
+                        // icon: ShoppingCartOutlined,
+                        breadcrumb: false,
                         submenu: [],
                     },
                 ],

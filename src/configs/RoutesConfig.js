@@ -34,9 +34,19 @@ export const protectedRoutes = [
         ),
     },
     {
+        key: "main",
+        path: `${APP_PREFIX_PATH}/main`,
+        component: React.lazy(() => import("views/app-views/main")),
+    },
+    {
         key: "main.dashboard",
         path: `${APP_PREFIX_PATH}/main/dashboard`,
         component: React.lazy(() => import("views/app-views/main/dashboard")),
+    },
+    {
+        key: "main.catalogue",
+        path: `${APP_PREFIX_PATH}/main/catalogue`,
+        component: React.lazy(() => import("views/app-views/main/catalogue")),
     },
     {
         key: "main.catalogue.merch",
@@ -64,6 +74,25 @@ export const protectedRoutes = [
         path: `${APP_PREFIX_PATH}/main/catalogue/category`,
         component: React.lazy(() =>
             import("views/app-views/main/catalogue/category/Category")
+        ),
+    },
+    {
+        key: "main.clients",
+        path: `${APP_PREFIX_PATH}/main/clients`,
+        component: React.lazy(() => import("views/app-views/main/clients")),
+    },
+    {
+        key: "main.clients.list",
+        path: `${APP_PREFIX_PATH}/main/clients/list`,
+        component: React.lazy(() =>
+            import("views/app-views/main/clients/list/List")
+        ),
+    },
+    {
+        key: "main.clients.group",
+        path: `${APP_PREFIX_PATH}/main/clients/group`,
+        component: React.lazy(() =>
+            import("views/app-views/main/clients/group/Group")
         ),
     },
 ];
