@@ -13,19 +13,17 @@ const Routes = () => {
 			<Route path="/" element={<ProtectedRoute />}>
 				<Route path="/" element={<Navigate replace to={AUTHENTICATED_ENTRY} />} />
 				{protectedRoutes.map((route, index) => {
-					console.log('hello world', route)
 					return (
 						<Route 
 							key={route.key + index} 
 							path={route.path}
-							// element={
-							// 	<AppRoute
-							// 		routeKey={route.key} 
-							// 		component={route.component}
-							// 		{...route.meta} 
-							// 	/>
-							// }
-							element={<div>Hello world</div>}
+							element={
+								<AppRoute
+									routeKey={route.key} 
+									component={route.component}
+									{...route.meta} 
+								/>
+							}
 						/>
 					)
 				})}
