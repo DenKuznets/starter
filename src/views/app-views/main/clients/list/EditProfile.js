@@ -13,13 +13,14 @@ import {
 import { UserOutlined } from "@ant-design/icons";
 import { ROW_GUTTER } from "constants/ThemeConstant";
 import Flex from "components/shared-components/Flex";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ColorRing } from "react-loader-spinner";
 
 function EditProfile(Component) {
     return function WrappedComponent(props) {
         const params = useParams();
-        return <Component {...props} params={params} />;
+        const navigate = useNavigate();
+        return <Component {...props} navigate={navigate} params={params} />;
     };
 }
 
@@ -46,7 +47,7 @@ class EditProfileSimple extends Component {
     };
 
     componentDidMount() {
-        // this.getUser();
+        this.getUser();
     }
 
     render() {
@@ -59,7 +60,8 @@ class EditProfileSimple extends Component {
                     email: values.email,
                     userName: values.userName,
                 });
-                message.success({ content: "Done!", key, duration: 2 });
+                message.success({ content: "Done!", key, duration: 1 });
+                this.props.navigate(-1);
             }, 1000);
         };
 
@@ -67,16 +69,15 @@ class EditProfileSimple extends Component {
             console.log("Failed:", errorInfo);
         };
 
-        // const { name, email, username } = this.state;
-        const { name, email, username } = {
-            name: "den",
-            email: "dadsa",
-            username: "adsdass",
-        };
+        const { name, email, username } = this.state;
+        // const { name, email, username } = {
+        //     name: "den",
+        //     email: "dadsa@mail.ru",
+        //     username: "adsdass",
+        // };
 
         return name ? (
             <>
-                <div>{name}</div>
                 <div className="mt-4">
                     <Form
                         name="basicInformation"

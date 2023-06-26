@@ -8,55 +8,55 @@ import userData from "assets/data/user-list.data.json";
 import { ColorRing } from "react-loader-spinner";
 
 
-const myUsers = [
-    {
-        id: 1,
-        name: "Leanne Graham",
-        username: "Bret",
-        email: "Sincere@april.biz",
-        address: {
-            street: "Kulas Light",
-            suite: "Apt. 556",
-            city: "Gwenborough",
-            zipcode: "92998-3874",
-            geo: { lat: "-37.3159", lng: "81.1496" },
-        },
-        company: {
-            name: "Romaguera-Crona",
-            catchPhrase: "Multi-layered client-server neural-net",
-            bs: "harness real",
-        },
-    },
-    {
-        id: 2,
-        name: "ALeanne Graham",
-        username: "ABret",
-        email: "Sincere@april.biz",
-        address: {
-            street: "Kulas Light",
-            suite: "Apt. 556",
-            city: "AGwenborough",
-            zipcode: "92998-3874",
-            geo: { lat: "-37.3159", lng: "81.1496" },
-        },
-        company: {
-            name: "Romaguera-Crona",
-            catchPhrase: "Multi-layered client-server neural-net",
-            bs: "harness real",
-        },
-    },
-];
+// const myUsers = [
+//     {
+//         id: 1,
+//         name: "Leanne Graham",
+//         username: "Bret",
+//         email: "Sincere@april.biz",
+//         address: {
+//             street: "Kulas Light",
+//             suite: "Apt. 556",
+//             city: "Gwenborough",
+//             zipcode: "92998-3874",
+//             geo: { lat: "-37.3159", lng: "81.1496" },
+//         },
+//         company: {
+//             name: "Romaguera-Crona",
+//             catchPhrase: "Multi-layered client-server neural-net",
+//             bs: "harness real",
+//         },
+//     },
+//     {
+//         id: 2,
+//         name: "ALeanne Graham",
+//         username: "ABret",
+//         email: "Sincere@april.biz",
+//         address: {
+//             street: "Kulas Light",
+//             suite: "Apt. 556",
+//             city: "AGwenborough",
+//             zipcode: "92998-3874",
+//             geo: { lat: "-37.3159", lng: "81.1496" },
+//         },
+//         company: {
+//             name: "Romaguera-Crona",
+//             catchPhrase: "Multi-layered client-server neural-net",
+//             bs: "harness real",
+//         },
+//     },
+// ];
 
 export class List extends Component {
     // navigate = useNavigate();
     getUsers = () => {
-        // fetch("https://jsonplaceholder.typicode.com/users")
-        //     .then((response) => response.json())
-        //     .then((json) => {
-        //         this.setState({ newUsers: json });
-        //     });
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then((response) => response.json())
+            .then((json) => {
+                this.setState({ newUsers: json });
+            });
 
-        this.setState({ newUsers: myUsers });
+        // this.setState({ newUsers: myUsers });
     };
 
     state = {

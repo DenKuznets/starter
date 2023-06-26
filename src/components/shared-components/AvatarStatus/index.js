@@ -29,7 +29,7 @@ export const AvatarStatus = (props) => {
     } = props;
     return (
         <div className="avatar-status d-flex align-items-center">
-            {renderAvatar({ icon, src, type, size, shape, gap, text })}
+            {/* {renderAvatar({ icon, src, type, size, shape, gap, text })} */}
             <div className="ml-2">
                 <div>
                     {onNameClick ? (
