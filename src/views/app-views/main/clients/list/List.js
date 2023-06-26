@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import UserView from "./UserView";
 import AvatarStatus from "components/shared-components/AvatarStatus";
 import userData from "assets/data/user-list.data.json";
+import {  ColorRing } from "react-loader-spinner";
 
 const myUsers = [
     {
@@ -47,21 +48,25 @@ const myUsers = [
 
 export class List extends Component {
     getUsers = () => {
-        // console.log("getting users");
-
         // fetch("https://jsonplaceholder.typicode.com/users")
         //     .then((response) => response.json())
-        //     .then((json) => console.log(json));
+        //     .then((json) => {
+        //         this.setState({ newUsers: json });
+        //     });
 
-        return myUsers;
+        this.setState({ newUsers: myUsers });
     };
 
     state = {
-        newUsers: this.getUsers(),
+        newUsers: null,
         users: userData,
         userProfileVisible: false,
         selectedUser: null,
     };
+
+    componentDidMount() {
+        this.getUsers();
+    }
 
     deleteUser = (userId) => {
         this.setState({
@@ -135,26 +140,12 @@ export class List extends Component {
                     },
                 },
             },
-            // {
-            //     title: "Status",
-            //     dataIndex: "status",
-            //     render: (status) => (
-            //         <Tag
-            //             className="text-capitalize"
-            //             color={status === "active" ? "cyan" : "red"}
-            //         >
-            //             {status}
-            //         </Tag>
-            //     ),
-            //     sorter: {
-            //         compare: (a, b) => a.status.length - b.status.length,
-            //     },
-            // },
+
             {
                 title: "",
                 dataIndex: "actions",
                 render: (_, elm) => {
-                    console.log('elm', elm);
+                    console.log("elm", elm);
                     return (
                         <div className="text-right d-flex justify-content-end">
                             <Tooltip title="View">
@@ -169,21 +160,22 @@ export class List extends Component {
                                 />
                             </Tooltip>
                             <Tooltip title="Delete">
-                                {/* <Button
-                                danger
-                                icon={<DeleteOutlined />}
-                                onClick={() => {
-                                    this.deleteUser(elm.id);
-                                }}
-                                size="small"
-                            /> */}
+                                <Button
+                                    danger
+                                    icon={<DeleteOutlined />}
+                                    onClick={() => {
+                                        console.log(elm.id);
+                                        this.deleteUser(elm.id);
+                                    }}
+                                    size="small"
+                                />
                             </Tooltip>
                         </div>
                     );
                 },
             },
         ];
-        return (
+        return newUsers ? (
             <Card bodyStyle={{ padding: "0px" }}>
                 <div className="table-responsive">
                     <Table
@@ -199,8 +191,17 @@ export class List extends Component {
                         this.closeUserProfile();
                     }}
                 />
-                {/* <div className="">userview</div> */}
             </Card>
+        ) : (
+            <ColorRing
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{width:"100%", height:"50%"}}
+                wrapperClass="blocks-wrapper"
+                colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+            />
         );
     }
 }

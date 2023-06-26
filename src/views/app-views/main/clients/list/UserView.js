@@ -24,9 +24,9 @@ export class UserView extends Component {
 				open={visible}
 			>
 				<div className="text-center mt-3">
-					<Avatar size={80} src={data?.img} />
+					{/* <Avatar size={80} src={data?.img} /> */}
 					<h3 className="mt-2 mb-0">{data?.name}</h3>
-					<span className="text-muted">{data?.personalInfo.title}</span>
+					<span className="text-muted">{data?.username}</span>
 				</div>
 				<Divider dashed />
 				<div className="">
@@ -37,26 +37,26 @@ export class UserView extends Component {
 					</p>
 					<p>
 						<CalendarOutlined />
-						<span className="ml-3 text-dark">Born in {data?.personalInfo.birthday}</span>
+						<span className="ml-3 text-dark">Born in {data?.address.city}</span>
 					</p>
 				</div>
 				<div className="mt-5">
 					<h6 className="text-muted text-uppercase mb-3">CONTACT</h6>
-					<p>
+					{/* <p>
 						<MobileOutlined />
 						<span className="ml-3 text-dark">{data?.personalInfo.phoneNumber}</span>
-					</p>
+					</p> */}
 					<p>
 						<MailOutlined />
 						<span className="ml-3 text-dark">{data?.email? data?.email: '-'}</span>
 					</p>
 					<p>
 						<CompassOutlined />
-						<span className="ml-3 text-dark">{data?.personalInfo.location}</span>
+						<span className="ml-3 text-dark">{data?.company?.name}</span>
 					</p>
 				</div>
 				<div className="mt-5">
-					<h6 className="text-muted text-uppercase mb-3">Social profiles</h6>
+					{/* <h6 className="text-muted text-uppercase mb-3">Social profiles</h6>
 					<p>
 						<FacebookOutlined />
 						<a href="/#" className="ml-3 text-dark">{data?.personalInfo.facebook? data?.personalInfo.facebook : '-'}</a>
@@ -72,7 +72,7 @@ export class UserView extends Component {
 					<p>
 						<GlobalOutlined />
 						<a href="/#" className="ml-3 text-dark">{data?.personalInfo.site? data?.personalInfo.site : '-'}</a>
-					</p>
+					</p> */}
 				</div>
 			</Drawer>
 		)
