@@ -15,417 +15,154 @@ import { ROW_GUTTER } from "constants/ThemeConstant";
 import Flex from "components/shared-components/Flex";
 import { useParams } from "react-router-dom";
 
-// export class EditProfile extends Component {
-//     avatarEndpoint = "https://www.mocky.io/v2/5cc8019d300000980a055e76";
+function EditProfile(Component) {
+    return function WrappedComponent(props) {
+        const params = useParams();
+        return <Component {...props} params={params} />;
+    };
+}
 
-//     state = {
-//         // user: GetUser(),
-//         avatarUrl: "/img/avatars/thumb-6.jpg",
-//         name: "Charlie Howard",
-//         email: "charlie.howard@themenate.com",
-//         userName: "Charlie",
-//         dateOfBirth: null,
-//         phoneNumber: "+44 (1532) 135 7921",
-//         website: "",
-//         address: "",
-//         city: "",
-//         postcode: "",
-//     };
+class EditProfileSimple extends Component {
+    state = {
+        name: null,
+        username: null,
+        email: null,
+    };
 
-//     getBase64(img, callback) {
-//         const reader = new FileReader();
-//         reader.addEventListener("load", () => callback(reader.result));
-//         reader.readAsDataURL(img);
-//     }
+    getUser() {
+        fetch(
+            `https://jsonplaceholder.typicode.com/users/${this.props.params.id}`
+        )
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                this.setState({
+                    name: json.name,
+                    username: json.username,
+                    email: json.email,
+                });
+            });
+    }
 
-//     componentDidMount() {
-//         GetUser();
-//     }
+    componentDidMount() {
+        // this.getUser();
+    }
 
-//     render() {
-//         const onFinish = (values) => {
-//             const key = "updatable";
-//             message.loading({ content: "Updating...", key });
-//             setTimeout(() => {
-//                 this.setState({
-//                     name: values.name,
-//                     email: values.email,
-//                     userName: values.userName,
-//                     dateOfBirth: values.dateOfBirth,
-//                     phoneNumber: values.phoneNumber,
-//                     website: values.website,
-//                     address: values.address,
-//                     city: values.city,
-//                     postcode: values.postcode,
-//                 });
-//                 message.success({ content: "Done!", key, duration: 2 });
-//             }, 1000);
-//         };
-
-//         const onFinishFailed = (errorInfo) => {
-//             console.log("Failed:", errorInfo);
-//         };
-
-//         const onUploadAavater = (info) => {
-//             const key = "updatable";
-//             if (info.file.status === "uploading") {
-//                 message.loading({
-//                     content: "Uploading...",
-//                     key,
-//                     duration: 1000,
-//                 });
-//                 return;
-//             }
-//             if (info.file.status === "done") {
-//                 this.getBase64(info.file.originFileObj, (imageUrl) =>
-//                     this.setState({
-//                         avatarUrl: imageUrl,
-//                     })
-//                 );
-//                 message.success({ content: "Uploaded!", key, duration: 1.5 });
-//             }
-//         };
-
-//         const onRemoveAvater = () => {
-//             this.setState({
-//                 avatarUrl: "",
-//             });
-//         };
-
-//         const {
-//             name,
-//             email,
-//             userName,
-//             dateOfBirth,
-//             phoneNumber,
-//             website,
-//             address,
-//             city,
-//             postcode,
-//             avatarUrl,
-//         } = this.state;
-
-//         return (
-//             <>
-//                 <Flex
-//                     alignItems="center"
-//                     mobileFlex={false}
-//                     className="text-center text-md-left"
-//                 >
-//                     <Avatar size={90} src={avatarUrl} icon={<UserOutlined />} />
-//                     <div className="ml-3 mt-md-0 mt-3">
-//                         <Upload
-//                             onChange={onUploadAavater}
-//                             showUploadList={false}
-//                             action={this.avatarEndpoint}
-//                         >
-//                             <Button type="primary">Change Avatar</Button>
-//                         </Upload>
-//                         <Button className="ml-2" onClick={onRemoveAvater}>
-//                             Remove
-//                         </Button>
-//                     </div>
-//                 </Flex>
-//                 <div className="mt-4">
-//                     <Form
-//                         name="basicInformation"
-//                         layout="vertical"
-//                         initialValues={{
-//                             name: name,
-//                             email: email,
-//                             username: userName,
-//                             dateOfBirth: dateOfBirth,
-//                             phoneNumber: phoneNumber,
-//                             website: website,
-//                             address: address,
-//                             city: city,
-//                             postcode: postcode,
-//                         }}
-//                         onFinish={onFinish}
-//                         onFinishFailed={onFinishFailed}
-//                     >
-//                         <Row>
-//                             <Col xs={24} sm={24} md={24} lg={16}>
-//                                 <Row gutter={ROW_GUTTER}>
-//                                     <Col xs={24} sm={24} md={12}>
-//                                         <Form.Item
-//                                             label="Name"
-//                                             name="name"
-//                                             rules={[
-//                                                 {
-//                                                     required: true,
-//                                                     message:
-//                                                         "Please input your name!",
-//                                                 },
-//                                             ]}
-//                                         >
-//                                             <Input />
-//                                         </Form.Item>
-//                                     </Col>
-//                                     <Col xs={24} sm={24} md={12}>
-//                                         <Form.Item
-//                                             label="Username"
-//                                             name="username"
-//                                             rules={[
-//                                                 {
-//                                                     required: true,
-//                                                     message:
-//                                                         "Please input your username!",
-//                                                 },
-//                                             ]}
-//                                         >
-//                                             <Input />
-//                                         </Form.Item>
-//                                     </Col>
-//                                     <Col xs={24} sm={24} md={12}>
-//                                         <Form.Item
-//                                             label="Email"
-//                                             name="email"
-//                                             rules={[
-//                                                 {
-//                                                     required: true,
-//                                                     type: "email",
-//                                                     message:
-//                                                         "Please enter a valid email!",
-//                                                 },
-//                                             ]}
-//                                         >
-//                                             <Input />
-//                                         </Form.Item>
-//                                     </Col>
-//                                     <Col xs={24} sm={24} md={12}>
-//                                         <Form.Item
-//                                             label="Date of Birth"
-//                                             name="dateOfBirth"
-//                                         >
-//                                             <DatePicker className="w-100" />
-//                                         </Form.Item>
-//                                     </Col>
-//                                     <Col xs={24} sm={24} md={12}>
-//                                         <Form.Item
-//                                             label="Phone Number"
-//                                             name="phoneNumber"
-//                                         >
-//                                             <Input />
-//                                         </Form.Item>
-//                                     </Col>
-//                                     <Col xs={24} sm={24} md={12}>
-//                                         <Form.Item
-//                                             label="Website"
-//                                             name="website"
-//                                         >
-//                                             <Input />
-//                                         </Form.Item>
-//                                     </Col>
-//                                     <Col xs={24} sm={24} md={24}>
-//                                         <Form.Item
-//                                             label="Address"
-//                                             name="address"
-//                                         >
-//                                             <Input />
-//                                         </Form.Item>
-//                                     </Col>
-//                                     <Col xs={24} sm={24} md={12}>
-//                                         <Form.Item label="City" name="city">
-//                                             <Input />
-//                                         </Form.Item>
-//                                     </Col>
-//                                     <Col xs={24} sm={24} md={12}>
-//                                         <Form.Item
-//                                             label="Post code"
-//                                             name="postcode"
-//                                         >
-//                                             <Input />
-//                                         </Form.Item>
-//                                     </Col>
-//                                 </Row>
-//                                 <Button type="primary" htmlType="submit">
-//                                     Save Change
-//                                 </Button>
-//                             </Col>
-//                         </Row>
-//                     </Form>
-//                 </div>
-//             </>
-//         );
-//     }
-// }
-
-const UserID = ({ children }) => {
-    const params = useParams();
-    // fetch("https://jsonplaceholder.typicode.com/users")
-    //     .then((response) => response.json())
-    //     .then((json) => {
-    //         this.setState({ newUsers: json });
-    //     });
-    return children(params);
-};
-
-class EditProfile extends Component {
     render() {
+        const onFinish = (values) => {
+            const key = "updatable";
+            message.loading({ content: "Updating...", key });
+            setTimeout(() => {
+                this.setState({
+                    name: values.name,
+                    email: values.email,
+                    userName: values.userName,
+                });
+                message.success({ content: "Done!", key, duration: 2 });
+            }, 1000);
+        };
+
+        const onFinishFailed = (errorInfo) => {
+            console.log("Failed:", errorInfo);
+        };
+
+        
+
+        const onRemoveAvater = () => {
+            this.setState({
+                avatarUrl: "",
+            });
+        };
+
+        const {
+            name,
+            email,
+            userName,
+            dateOfBirth,
+            phoneNumber,
+            website,
+            address,
+            city,
+            postcode,
+            avatarUrl,
+        } = this.state;
         return (
-            <UserID>
-                {(par) => (
-                    <>
-                        <Flex
-                            alignItems="center"
-                            mobileFlex={false}
-                            className="text-center text-md-left"
-                        >
-                            <Avatar
-                                size={90}
-                                // src={avatarUrl}
-                                icon={<UserOutlined />}
-                            />
-                            <div className="ml-3 mt-md-0 mt-3">
-                                <Upload
-                                    // onChange={onUploadAavater}
-                                    showUploadList={false}
-                                    // action={this.avatarEndpoint}
-                                >
-                                    <Button type="primary">
-                                        Change Avatar
-                                    </Button>
-                                </Upload>
-                                <Button
-                                    className="ml-2"
-                                    // onClick={onRemoveAvater}
-                                >
-                                    Remove
-                                </Button>
-                            </div>
-                        </Flex>
-                        <div className="mt-4">
-                            <Form
-                                name="basicInformation"
-                                layout="vertical"
-                                // initialValues={{
-                                //     name: name,
-                                //     email: email,
-                                //     username: userName,
-                                //     dateOfBirth: dateOfBirth,
-                                //     phoneNumber: phoneNumber,
-                                //     website: website,
-                                //     address: address,
-                                //     city: city,
-                                //     postcode: postcode,
-                                // }}
-                                // onFinish={onFinish}
-                                // onFinishFailed={onFinishFailed}
-                            >
-                                <Row>
-                                    <Col xs={24} sm={24} md={24} lg={16}>
-                                        <Row gutter={ROW_GUTTER}>
-                                            <Col xs={24} sm={24} md={12}>
-                                                <Form.Item
-                                                    label="Name"
-                                                    name="name"
-                                                    rules={[
-                                                        {
-                                                            required: true,
-                                                            message:
-                                                                "Please input your name!",
-                                                        },
-                                                    ]}
-                                                >
-                                                    <Input />
-                                                </Form.Item>
-                                            </Col>
-                                            <Col xs={24} sm={24} md={12}>
-                                                <Form.Item
-                                                    label="Username"
-                                                    name="username"
-                                                    rules={[
-                                                        {
-                                                            required: true,
-                                                            message:
-                                                                "Please input your username!",
-                                                        },
-                                                    ]}
-                                                >
-                                                    <Input />
-                                                </Form.Item>
-                                            </Col>
-                                            <Col xs={24} sm={24} md={12}>
-                                                <Form.Item
-                                                    label="Email"
-                                                    name="email"
-                                                    rules={[
-                                                        {
-                                                            required: true,
-                                                            type: "email",
-                                                            message:
-                                                                "Please enter a valid email!",
-                                                        },
-                                                    ]}
-                                                >
-                                                    <Input />
-                                                </Form.Item>
-                                            </Col>
-                                            <Col xs={24} sm={24} md={12}>
-                                                <Form.Item
-                                                    label="Date of Birth"
-                                                    name="dateOfBirth"
-                                                >
-                                                    <DatePicker className="w-100" />
-                                                </Form.Item>
-                                            </Col>
-                                            <Col xs={24} sm={24} md={12}>
-                                                <Form.Item
-                                                    label="Phone Number"
-                                                    name="phoneNumber"
-                                                >
-                                                    <Input />
-                                                </Form.Item>
-                                            </Col>
-                                            <Col xs={24} sm={24} md={12}>
-                                                <Form.Item
-                                                    label="Website"
-                                                    name="website"
-                                                >
-                                                    <Input />
-                                                </Form.Item>
-                                            </Col>
-                                            <Col xs={24} sm={24} md={24}>
-                                                <Form.Item
-                                                    label="Address"
-                                                    name="address"
-                                                >
-                                                    <Input />
-                                                </Form.Item>
-                                            </Col>
-                                            <Col xs={24} sm={24} md={12}>
-                                                <Form.Item
-                                                    label="City"
-                                                    name="city"
-                                                >
-                                                    <Input />
-                                                </Form.Item>
-                                            </Col>
-                                            <Col xs={24} sm={24} md={12}>
-                                                <Form.Item
-                                                    label="Post code"
-                                                    name="postcode"
-                                                >
-                                                    <Input />
-                                                </Form.Item>
-                                            </Col>
-                                        </Row>
-                                        <Button
-                                            type="primary"
-                                            htmlType="submit"
+            <>
+               
+                <div className="mt-4">
+                    <Form
+                        name="basicInformation"
+                        layout="vertical"
+                        initialValues={{
+                            name: this.name,
+                            email: this.email,
+                            username: this.username,
+                            
+                        }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                    >
+                        <Row>
+                            <Col xs={24} sm={24} md={24} lg={16}>
+                                <Row gutter={ROW_GUTTER}>
+                                    <Col xs={24} sm={24} md={12}>
+                                        <Form.Item
+                                            label="Name"
+                                            name="name"
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    message:
+                                                        "Please input your name!",
+                                                },
+                                            ]}
                                         >
-                                            Save Change
-                                        </Button>
+                                            <Input />
+                                        </Form.Item>
                                     </Col>
+                                    <Col xs={24} sm={24} md={12}>
+                                        <Form.Item
+                                            label="Username"
+                                            name="username"
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    message:
+                                                        "Please input your username!",
+                                                },
+                                            ]}
+                                        >
+                                            <Input />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xs={24} sm={24} md={12}>
+                                        <Form.Item
+                                            label="Email"
+                                            name="email"
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    type: "email",
+                                                    message:
+                                                        "Please enter a valid email!",
+                                                },
+                                            ]}
+                                        >
+                                            <Input />
+                                        </Form.Item>
+                                    </Col>
+                                   
                                 </Row>
-                            </Form>
-                        </div>
-                    </>
-                )}
-            </UserID>
+                                <Button type="primary" htmlType="submit">
+                                    Save Change
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Form>
+                </div>
+            </>
         );
     }
 }
 
-export default EditProfile;
+export default EditProfile(EditProfileSimple);
