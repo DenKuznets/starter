@@ -14,6 +14,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { ROW_GUTTER } from "constants/ThemeConstant";
 import Flex from "components/shared-components/Flex";
 import { useParams } from "react-router-dom";
+import { ColorRing } from "react-loader-spinner";
 
 function EditProfile(Component) {
     return function WrappedComponent(props) {
@@ -29,7 +30,7 @@ class EditProfileSimple extends Component {
         email: null,
     };
 
-    getUser() {
+    getUser = () => {
         fetch(
             `https://jsonplaceholder.typicode.com/users/${this.props.params.id}`
         )
@@ -42,7 +43,7 @@ class EditProfileSimple extends Component {
                     email: json.email,
                 });
             });
-    }
+    };
 
     componentDidMount() {
         // this.getUser();
@@ -66,38 +67,24 @@ class EditProfileSimple extends Component {
             console.log("Failed:", errorInfo);
         };
 
-        
-
-        const onRemoveAvater = () => {
-            this.setState({
-                avatarUrl: "",
-            });
+        // const { name, email, username } = this.state;
+        const { name, email, username } = {
+            name: "den",
+            email: "dadsa",
+            username: "adsdass",
         };
 
-        const {
-            name,
-            email,
-            userName,
-            dateOfBirth,
-            phoneNumber,
-            website,
-            address,
-            city,
-            postcode,
-            avatarUrl,
-        } = this.state;
-        return (
+        return name ? (
             <>
-               
+                <div>{name}</div>
                 <div className="mt-4">
                     <Form
                         name="basicInformation"
                         layout="vertical"
                         initialValues={{
-                            name: this.name,
-                            email: this.email,
-                            username: this.username,
-                            
+                            name: name,
+                            email: email,
+                            username: username,
                         }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
@@ -151,7 +138,6 @@ class EditProfileSimple extends Component {
                                             <Input />
                                         </Form.Item>
                                     </Col>
-                                   
                                 </Row>
                                 <Button type="primary" htmlType="submit">
                                     Save Change
@@ -161,6 +147,16 @@ class EditProfileSimple extends Component {
                     </Form>
                 </div>
             </>
+        ) : (
+            <ColorRing
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{ width: "100%", height: "50%" }}
+                wrapperClass="blocks-wrapper"
+                colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+            />
         );
     }
 }
