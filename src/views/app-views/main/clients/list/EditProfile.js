@@ -37,7 +37,7 @@ class EditProfileSimple extends Component {
         )
             .then((response) => response.json())
             .then((json) => {
-                console.log(json);
+                // console.log(json);
                 this.setState({
                     name: json.name,
                     username: json.username,
