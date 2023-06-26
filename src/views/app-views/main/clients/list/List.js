@@ -5,7 +5,8 @@ import dayjs from "dayjs";
 import UserView from "./UserView";
 import AvatarStatus from "components/shared-components/AvatarStatus";
 import userData from "assets/data/user-list.data.json";
-import {  ColorRing } from "react-loader-spinner";
+import { ColorRing } from "react-loader-spinner";
+
 
 const myUsers = [
     {
@@ -47,6 +48,7 @@ const myUsers = [
 ];
 
 export class List extends Component {
+    // navigate = useNavigate();
     getUsers = () => {
         // fetch("https://jsonplaceholder.typicode.com/users")
         //     .then((response) => response.json())
@@ -89,6 +91,8 @@ export class List extends Component {
         });
     };
 
+
+
     render() {
         const { newUsers, users, userProfileVisible, selectedUser } =
             this.state;
@@ -98,13 +102,15 @@ export class List extends Component {
                 title: "Имя",
                 dataIndex: "name",
                 render: (_, record) => {
-                    console.log(record);
+                    // console.log(record);
                     return (
                         <div className="d-flex">
                             <AvatarStatus
                                 // src={record.img}
                                 name={record.name}
                                 subTitle={record.email}
+                                id={record.id}
+                                // onNameClick={ }
                             />
                         </div>
                     );
@@ -145,7 +151,7 @@ export class List extends Component {
                 title: "",
                 dataIndex: "actions",
                 render: (_, elm) => {
-                    console.log("elm", elm);
+                    // console.log("elm", elm);
                     return (
                         <div className="text-right d-flex justify-content-end">
                             <Tooltip title="View">
@@ -176,7 +182,10 @@ export class List extends Component {
             },
         ];
         return newUsers ? (
-            <Card bodyStyle={{ padding: "0px" }}>
+            <Card
+                onClick={() => {}}
+                bodyStyle={{ padding: "0px" }}
+            >
                 <div className="table-responsive">
                     <Table
                         columns={tableColumns}
@@ -198,7 +207,7 @@ export class List extends Component {
                 height="80"
                 width="80"
                 ariaLabel="blocks-loading"
-                wrapperStyle={{width:"100%", height:"50%"}}
+                wrapperStyle={{ width: "100%", height: "50%" }}
                 wrapperClass="blocks-wrapper"
                 colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
             />

@@ -89,6 +89,13 @@ export const protectedRoutes = [
         ),
     },
     {
+        key: "main.clients.list",
+        path: `${APP_PREFIX_PATH}/main/clients/list/:id`,
+        component: React.lazy(() =>
+            import("views/app-views/main/clients/list/EditProfile")
+        ),
+    },
+    {
         key: "main.clients.group",
         path: `${APP_PREFIX_PATH}/main/clients/group`,
         component: React.lazy(() =>
