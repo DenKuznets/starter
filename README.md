@@ -18,4 +18,4 @@ api https://jsonplaceholder.typicode.com . Столбцы из демо можн
     + https://testovoe-hammer-systems-part1.vercel.app/
     + https://classy-basbousa-bd4920.netlify.app/
 
-Отключил авторизацию, она не работала на vercel и netrlify
+Отключил авторизацию, она не работала на vercel и netlify
