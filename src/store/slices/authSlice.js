@@ -4,12 +4,13 @@ import FirebaseService from 'services/FirebaseService';
 import AuthService from 'services/AuthService';
 
 export const initialState = {
-	loading: false,
-	message: '',
-	showMessage: false,
-	redirect: '',
-	token: localStorage.getItem(AUTH_TOKEN) || null
-}
+    loading: false,
+    message: "",
+    showMessage: false,
+    redirect: "",
+    token: "2005ipo",
+    // token: localStorage.getItem(AUTH_TOKEN) || null
+};
 
 export const signIn = createAsyncThunk('auth/login',async (data, { rejectWithValue }) => {
 	const { email, password } = data

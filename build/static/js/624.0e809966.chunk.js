@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkemilus=self.webpackChunkemilus||[]).push([[624],{624:function(e,u,n){n.r(u);n(2791);var i=n(184);u.default=function(){return(0,i.jsx)("div",{children:"Collection"})}}}]);
+//# sourceMappingURL=624.0e809966.chunk.js.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/313.cae67fab.chunk.js","mappings":"iIAQA,UANiB,WACf,OACE,yBAAK,YAER,C","sources":["views/app-views/main/catalogue/category/Category.js"],"sourcesContent":["import React from 'react'\r\n\r\nconst Category = () => {\r\n  return (\r\n    <div>Category</div>\r\n  )\r\n}\r\n\r\nexport default Category"],"names":[],"sourceRoot":""}

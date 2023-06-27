@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/624.0e809966.chunk.js","mappings":"gIAQA,UANmB,WACjB,OACE,yBAAK,cAER,C","sources":["views/app-views/main/catalogue/collection/Collection.js"],"sourcesContent":["import React from 'react'\r\n\r\nconst Collection = () => {\r\n  return (\r\n    <div>Collection</div>\r\n  )\r\n}\r\n\r\nexport default Collection"],"names":[],"sourceRoot":""}
