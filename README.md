@@ -14,4 +14,8 @@ api https://jsonplaceholder.typicode.com . Столбцы из демо можн
 выбранного пользователя. Поля также можно поменять на подходящие
   * При нажатии на Save Changes имитировать отправку данных на сервер,
 покрутить секунду лоадер и вернуться обратно на список пользователей
-  * Задеплоить в сеть, например на heroku
+  * Задеплоить в сеть, например на heroku:
+    + https://testovoe-hammer-systems-part1.vercel.app/
+    + https://classy-basbousa-bd4920.netlify.app/
+
+Отключил авторизацию, она не работала на vercel и netrlify
